@@ -3,12 +3,14 @@ package main
 import (
 	"context"
 	"errors"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
 	"os/signal"
 
 	server "sensor-sentinel/internal/gateways"
+	services "sensor-sentinel/internal/services"
 )
 
 // @title           SensorSentinel
@@ -22,5 +24,16 @@ func main() {
 	s := server.NewServer()
 	if err := s.Run(ctx); err != nil && !errors.Is(err, http.ErrServerClosed) {
 		log.Printf("error during server shutdown: %v", err)
+	}
+}
+
+func setupServices() services.Services {
+	waterService, err := services.NewBasicWaterLevelService(4)
+	if err != nil {
+		fmt.Println("Error initializing water service.")
+	}
+
+	return services.Services{
+		WaterService: waterService,
 	}
 }
