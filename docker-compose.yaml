@@ -1,0 +1,18 @@
+version: '3'
+services:
+  sensor-sentinel:
+    container_name: sensor-sentinel
+    build: .
+    env_file:
+      - .env
+    privileged: true
+    devices:
+      - "/dev/gpioc0:/dev/gpioc0"
+      - "/dev/gpioc1:/dev/gpioc1"
+      - "/dev/gpioc2:/dev/gpioc2"
+      - "/dev/gpioc3:/dev/gpioc3"
+    environment:
+      HTTP_PORT: 8000
+      POSTGRES_HOST: database
+    ports:
+      - "8000:8000"
