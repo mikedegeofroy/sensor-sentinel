@@ -1,13 +1,14 @@
 package water
 
 import (
+	"net/http"
 	"sensor-sentinel/internal/services"
 
 	"github.com/gin-gonic/gin"
 )
 
 type Response struct {
-	level int
+	Level int `json:"level"`
 }
 
 // GetWaterStatus godoc
@@ -25,8 +26,8 @@ func GetWaterStatus(services services.Services) gin.HandlerFunc {
 			c.Status(500)
 		}
 		res := Response{
-			level: level,
+			Level: level,
 		}
-		c.JSON(200, res)
+		c.JSON(http.StatusOK, res)
 	}
 }
