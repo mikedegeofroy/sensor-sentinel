@@ -1,6 +1,14 @@
 package water
 
-import "github.com/gin-gonic/gin"
+import (
+	"sensor-sentinel/internal/services"
+
+	"github.com/gin-gonic/gin"
+)
+
+type Response struct {
+	level int
+}
 
 // GetWaterStatus godoc
 // @Summary Get water level
@@ -10,8 +18,15 @@ import "github.com/gin-gonic/gin"
 // @Success 200
 // @Failure 500
 // @Router /water/status [get]
-func GetWaterStatus() gin.HandlerFunc {
+func GetWaterStatus(services services.Services) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		c.Status(200)
+		level, err := services.WaterService.GetWaterLevel()
+		if err != nil {
+			c.Status(500)
+		}
+		res := Response{
+			level: level,
+		}
+		c.JSON(200, res)
 	}
 }

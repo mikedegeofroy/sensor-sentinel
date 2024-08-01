@@ -11,6 +11,7 @@ import (
 	"golang.org/x/sync/errgroup"
 
 	"sensor-sentinel/internal/gateways/http"
+	"sensor-sentinel/internal/services"
 )
 
 const shutdownDuration = 1500 * time.Millisecond
@@ -19,11 +20,11 @@ type Server struct {
 	HttpServer *http.Server
 }
 
-func NewServer() *Server {
+func NewServer(services services.Services) *Server {
 	r := gin.Default()
 
 	s := &Server{
-		HttpServer: http.NewServer(r),
+		HttpServer: http.NewServer(r, services),
 	}
 
 	return s

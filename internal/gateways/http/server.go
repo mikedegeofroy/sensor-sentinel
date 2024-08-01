@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"sensor-sentinel/cmd/app/config"
+	"sensor-sentinel/internal/services"
 
 	"github.com/gin-gonic/gin"
 	"github.com/tj/go-spin"
@@ -22,7 +23,7 @@ type Server struct {
 	Router     *gin.Engine
 }
 
-func NewServer(router *gin.Engine) *Server {
+func NewServer(router *gin.Engine, services services.Services) *Server {
 	s := &Server{
 		Router: router,
 		HttpServer: http.Server{
@@ -31,7 +32,7 @@ func NewServer(router *gin.Engine) *Server {
 		},
 	}
 
-	setupRouter(s)
+	setupRouter(s, services)
 
 	return s
 }
