@@ -3,6 +3,7 @@ package services
 import (
 	"fmt"
 	"log"
+
 	"github.com/stianeikeland/go-rpio/v4"
 )
 
@@ -27,7 +28,9 @@ func closeGPIO() {
 
 // Implement the GetWaterLevel method with error handling
 func (m *BasicWaterLevelService) GetWaterLevel() (int, error) {
+	initGPIO()
 	res := m.pin.Read()
+	closeGPIO()
 	switch res {
 	case rpio.Low:
 		return 0, nil
