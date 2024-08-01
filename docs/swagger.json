@@ -1,0 +1,28 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Notify when water level is low",
+        "title": "SensorSentinel",
+        "contact": {},
+        "version": "2.0"
+    },
+    "paths": {
+        "/health": {
+            "get": {
+                "description": "Get the health of the application",
+                "tags": [
+                    "health"
+                ],
+                "summary": "Get health",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        }
+    }
+}
