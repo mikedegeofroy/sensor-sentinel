@@ -3,7 +3,6 @@ package services
 import (
 	"fmt"
 	"log"
-
 	"github.com/stianeikeland/go-rpio/v4"
 )
 
@@ -23,22 +22,25 @@ func (m *BasicWaterLevelService) GetWaterLevel() (int, error) {
 	}
 }
 
+// Initialize and return the BasicWaterLevelService
 func NewBasicWaterLevelService(pinNumber int) (*BasicWaterLevelService, error) {
-	err := rpio.Open()
-	if err != nil {
+	// Open GPIO
+	if err := rpio.Open(); err != nil {
 		return nil, fmt.Errorf("Error opening GPIO: %w", err)
 	}
 
-	defer func() {
-		if closeErr := rpio.Close(); closeErr != nil {
-			log.Printf("error closing GPIO: %v", closeErr)
-		}
-	}()
-
+	// Initialize pin
 	pin := rpio.Pin(pinNumber)
 	pin.Input()
 
 	return &BasicWaterLevelService{
 		pin: pin,
 	}, nil
+}
+
+// Close GPIO when the service is no longer needed
+func (m *BasicWaterLevelService) Close() {
+	if err := rpio.Close(); err != nil {
+		log.Printf("Error closing GPIO: %v", err)
+	}
 }

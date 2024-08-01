@@ -15,7 +15,6 @@ FROM alpine:latest
 
 WORKDIR /app
 
-COPY --from=builder /app/migrations ./migrations
 COPY --from=builder /app/dishdash-server .
 
 CMD ["./sensor-sentinel"]
