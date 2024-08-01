@@ -3,6 +3,7 @@ package http
 import (
 	"sensor-sentinel/docs"
 	"sensor-sentinel/internal/gateways/http/health"
+	"sensor-sentinel/internal/gateways/http/water"
 
 	swaggerfiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -15,6 +16,7 @@ func setupRouter(s *Server) {
 	v1 := s.Router.Group("/api/v1")
 	{
 		health.SetupHandlers(v1)
+		water.SetupHandlers(v1)
 	}
 
 	docs.SwaggerInfo.BasePath = "/api/v1"

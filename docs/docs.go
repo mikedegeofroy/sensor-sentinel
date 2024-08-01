@@ -31,6 +31,23 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/water/status": {
+            "get": {
+                "description": "Get the status of the water level",
+                "tags": [
+                    "water"
+                ],
+                "summary": "Get water level",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
         }
     }
 }`

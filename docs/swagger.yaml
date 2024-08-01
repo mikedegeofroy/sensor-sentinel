@@ -15,4 +15,15 @@ paths:
       summary: Get health
       tags:
       - health
+  /water/status:
+    get:
+      description: Get the status of the water level
+      responses:
+        "200":
+          description: OK
+        "500":
+          description: Internal Server Error
+      summary: Get water level
+      tags:
+      - water
 swagger: "2.0"
