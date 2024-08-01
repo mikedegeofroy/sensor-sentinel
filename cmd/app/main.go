@@ -28,7 +28,7 @@ func main() {
 }
 
 func setupServices() services.Services {
-	waterService, err := services.NewBasicWaterLevelService(4)
+	waterService, err := services.NewBasicWaterLevelService(23)
 	if err != nil {
 		fmt.Println("Error initializing water service.")
 	}
