@@ -14,6 +14,10 @@ type Config struct {
 		Port        uint16 `envconfig:"HTTP_PORT" default:"8000"`
 		AllowOrigin string `envconfig:"ALLOW_ORIGIN" default:"*"`
 	}
+	Telegram struct {
+		ApiKey string `envconfig:"TELEGRAM_API_KEY"`
+		ChatId int64 `envconfig:"TELEGRAM_CHAT_ID"`
+	}
 }
 
 var C Config

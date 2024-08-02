@@ -8,7 +8,6 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
-	"time"
 
 	server "sensor-sentinel/internal/gateways"
 	services "sensor-sentinel/internal/services"
@@ -19,6 +18,7 @@ func main() {
 	defer cancel()
 
 	svc := setupServices()
+	svc.WaterService.StartPolling()
 
 	s := server.NewServer(svc)
 	go func() {
@@ -26,11 +26,6 @@ func main() {
 			log.Printf("error during server shutdown: %v", err)
 		}
 	}()
-
-	svc.WaterService.StartPolling()
-	svc.WaterService.OnWaterLevelChange(func(level int) {
-		fmt.Println("Level changed to %d", level)
-	})
 
 	<-ctx.Done()
 
@@ -45,7 +40,14 @@ func setupServices() services.Services {
 		os.Exit(1)
 	}
 
+	alarmService, err := services.NewTelegramAlarmService(waterService)
+	if err != nil {
+		fmt.Println("Error initializing alarm service.")
+		os.Exit(1)
+	}
+
 	return services.Services{
 		WaterService: waterService,
+		AlarmService: alarmService,
 	}
 }
