@@ -6,4 +6,7 @@ type Services struct {
 
 type WaterService interface {
 	GetWaterLevel() (int, error)
+	OnWaterLevelChange(func(int))
+	StartPolling()
+	StopPolling()
 }
