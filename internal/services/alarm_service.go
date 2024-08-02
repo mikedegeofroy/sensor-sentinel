@@ -17,8 +17,10 @@ func NewTelegramAlarmService(ws WaterService) (*TelegramAlarmService, error) {
 	}
 
 	ws.OnWaterLevelChange(func(level int) {
-		msg := tgbotapi.NewMessage(config.C.Telegram.ChatId, config.C.Telegram.Message)
-		bot.Send(msg)
+		if level == 0 {
+			msg := tgbotapi.NewVenue(config.C.Telegram.ChatId, config.C.Telegram.Message, config.C.Cistern.Address, config.C.Cistern.Coordinates.Latitude, config.C.Cistern.Coordinates.Longitude)
+			bot.Send(msg)
+		}
 	})
 
 	return &TelegramAlarmService{

@@ -29,7 +29,7 @@ func NewMockWaterLevelService(pinNumber int) (*MockWaterLevelService, error) {
 
 func (m *MockWaterLevelService) StartPolling() {
 	for _, callback := range m.callbacks {
-		callback(10)
+		callback(0)
 	}
 }
 

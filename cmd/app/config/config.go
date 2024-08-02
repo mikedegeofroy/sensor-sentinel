@@ -19,6 +19,13 @@ type Config struct {
 		ChatId  int64  `envconfig:"TELEGRAM_CHAT_ID"`
 		Message string `envconfig:"TELEGRAM_MESSAGE"`
 	}
+	Cistern struct {
+		Coordinates struct {
+			Latitude  float64 `envconfig:"CISTERN_LAT"`
+			Longitude float64 `envconfig:"CISTERN_LON"`
+		}
+		Address string `envconfig:"CISTERN_ADDRESS"`
+	}
 }
 
 var C Config
