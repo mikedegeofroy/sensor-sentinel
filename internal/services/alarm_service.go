@@ -16,8 +16,8 @@ func NewTelegramAlarmService(ws WaterService) (*TelegramAlarmService, error) {
 		return nil, err
 	}
 
-	ws.OnWaterLevelChange(func(int) {
-		msg := tgbotapi.NewMessage(config.C.Telegram.ChatId, "penis")
+	ws.OnWaterLevelChange(func(level int) {
+		msg := tgbotapi.NewMessage(config.C.Telegram.ChatId, config.C.Telegram.Message)
 		bot.Send(msg)
 	})
 

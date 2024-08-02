@@ -15,8 +15,9 @@ type Config struct {
 		AllowOrigin string `envconfig:"ALLOW_ORIGIN" default:"*"`
 	}
 	Telegram struct {
-		ApiKey string `envconfig:"TELEGRAM_API_KEY"`
-		ChatId int64 `envconfig:"TELEGRAM_CHAT_ID"`
+		ApiKey  string `envconfig:"TELEGRAM_API_KEY"`
+		ChatId  int64  `envconfig:"TELEGRAM_CHAT_ID"`
+		Message string `envconfig:"TELEGRAM_MESSAGE"`
 	}
 }
 
