@@ -28,6 +28,7 @@ func closeGPIO() {
 
 // Implement the GetWaterLevel method with error handling
 func (m *BasicWaterLevelService) GetWaterLevel() (int, error) {
+	m.pin.PullUp()
 	res := m.pin.Read()
 	switch res {
 	case rpio.Low:
