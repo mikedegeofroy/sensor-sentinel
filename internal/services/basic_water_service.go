@@ -9,11 +9,11 @@ import (
 )
 
 type BasicWaterLevelService struct {
-	pin        rpio.Pin
-	callbacks  []func(int)
-	polling    bool
-	interval   time.Duration
-	stopChan   chan struct{}
+	pin       rpio.Pin
+	callbacks []func(int)
+	polling   bool
+	interval  time.Duration
+	stopChan  chan struct{}
 }
 
 func initGPIO() error {
@@ -55,7 +55,7 @@ func NewBasicWaterLevelService(pinNumber int) (*BasicWaterLevelService, error) {
 
 	return &BasicWaterLevelService{
 		pin:      pin,
-		interval: time.Second, // Default polling interval
+		interval: time.Minute, // Default polling interval
 		stopChan: make(chan struct{}),
 	}, nil
 }
@@ -71,6 +71,7 @@ func (m *BasicWaterLevelService) StartPolling() {
 				return
 			default:
 				level, err := m.GetWaterLevel()
+				fmt.Println("Reading water level: ", level)
 				if err != nil {
 					log.Printf("Error getting water level: %v", err)
 					time.Sleep(m.interval)
